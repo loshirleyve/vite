@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-13 07:47:03
- * @LastEditTime: 2021-07-13 08:15:00
+ * @LastEditTime: 2021-07-13 13:26:08
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/components/search-result.vue
@@ -23,6 +23,12 @@
 <script>
 export default {
   name: 'SearchResult',
+  props: {
+    searchText: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       list: [],
@@ -31,7 +37,8 @@ export default {
     }
   },
   methods: {
-    onLoad() {
+    onLoad () {
+      debugger
       // 异步更新数据
       // seTimeout 仅做示例，真实场景中一般为 ajax 请求
       setTimeout(() => {

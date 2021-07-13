@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-13 07:22:48
- * @LastEditTime: 2021-07-13 08:52:35
+ * @LastEditTime: 2021-07-13 13:21:22
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/components/search-suggestion.vue
@@ -11,14 +11,16 @@
   <div class="search-suggestion">
     <van-cell 
       icon="search"
-      :title="str"
       v-for="(str, index) in suggestions"
       :key="index"
-    ></van-cell>
+    >
+      <div slot="title" v-html="highlight(str)"></div>
+    </van-cell>
   </div>
 </template>
 
 <script>
+import { getSearchSuggestions } from '@/api/search'
 import { debounce } from 'lodash'
 
 export default {
@@ -34,45 +36,24 @@ export default {
       suggestions: []
     }
   },
+  computed: {
+    htmlSuggestions () {
+      
+    }
+  },
   mounted() {
     console.log('search suggestion')
   },
   methods: {
-    getData (q) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const data = {
-            a: {
-              q: 'a',
-              options: [
-                'aaa',
-                'a1',
-                'a2',
-                'a3'
-              ]
-            },
-            b: {
-              q: 'b',
-              options: [
-                'bbb',
-                'b1',
-                'b2',
-                'b3'
-              ]
-            },
-            v: {
-              q: 'v',
-              options: [
-                'value',
-                'val',
-                'vel',
-                'vvvv'
-              ]
-            }
-          }
-          resolve({data: data[q]})
-        }, 500)
-      })
+    highlight (str) {
+      // RegExp 是正则表达式的构造函数
+      // 参数1： 字符吕
+      // 参数2：匹配模式
+      // 返回值：正则对象
+      return str.replace(
+        new RegExp(this.searchText, 'gi'),
+        `<span style="color: red;">${this.searchText}</span>`
+      )
     }
   },
   watch: {
@@ -81,7 +62,7 @@ export default {
         // 找到数据接口
         // 请求获取数据
         // 模板绑定展示
-        const { data } = await this.getData(val)
+        const { data } = await getSearchSuggestions(val)
         console.log(data)
         this.suggestions = data && data.options
         console.log('hello')
