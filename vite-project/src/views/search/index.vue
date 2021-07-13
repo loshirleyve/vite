@@ -28,7 +28,10 @@
   <!-- /搜索结果 -->
 
   <!-- 搜索联想 -->
-  <search-suggestion v-else-if="searchText" />
+  <search-suggestion
+    v-else-if="searchText"
+    :search-text="searchText"
+  />
   <!-- /搜索联想 -->
 
   <!-- 历史记录 -->
