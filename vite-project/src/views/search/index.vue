@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-12 22:02:10
- * @LastEditTime: 2021-07-14 13:59:03
+ * @LastEditTime: 2021-07-15 06:57:21
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/index.vue
@@ -44,6 +44,7 @@
       v-else
       :search-histories="searchHistories"
       @search="onSearch"
+      @update-histories="searchHistories = $event"
     />
     <!-- /历史记录 -->
 
@@ -76,6 +77,11 @@ export default {
   mounted () {
     this.loadSearchHistories()
   },
+  watch: {
+    searchHistories () {
+      setItem('search-histories', this.searchHistories)
+    }
+  },
   methods: {
     onSearch (searchText) {
       // 把输入框设置为你要搜索的文本
@@ -93,7 +99,7 @@ export default {
       // 如果用户已登录，则把搜索记录存储到线上
       //    提示：只要我们调用获取搜索结果的数据接口，后端会给我们自动存储用户的搜索记录
       // 如果没有登录，则把搜索记录存储到本地
-      setItem('search-histories', this.searchHistories)
+      // setItem('search-histories', this.searchHistories)  // 涉及多处处理，直接在 watch 里监听统一处理
 
       
       // 展示搜索结果
@@ -118,7 +124,7 @@ export default {
       
       this.searchHistories = searchHistories
     }
-  },
+  }
 }
 </script>
 
