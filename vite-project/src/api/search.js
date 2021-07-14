@@ -2,7 +2,7 @@
 /*
  * @Author: liuli
  * @Date: 2021-07-13 08:34:42
- * @LastEditTime: 2021-07-13 12:59:39
+ * @LastEditTime: 2021-07-14 08:19:07
  * @LastEditors: Please set LastEditors
  * @Description: 搜索请求相关模块
  * @FilePath: /vite/vite-project/src/api/search.js
@@ -48,6 +48,38 @@ export const getSearchSuggestions = q => {
         }
       })
       resolve({data: data[matchKey]})
+    }, 500)
+  })
+}
+
+// 获取搜索结果
+export const getSearchResults = params => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let results = []
+      if (params.page < 10) {
+        results = [
+          {
+            title: 'aaaaaaaa'
+          },
+          {
+            title: 'a11111'
+          },
+          {
+            title: 'a222222'
+          },
+          {
+            title: 'a33333'
+          },
+          {
+            title: 'a44444'
+          },
+          {
+            title: 'a55555'
+          }
+        ]
+      }
+      resolve({data: { data: { results } }})
     }, 500)
   })
 }

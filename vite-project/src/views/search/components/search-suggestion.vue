@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-13 07:22:48
- * @LastEditTime: 2021-07-13 13:21:22
+ * @LastEditTime: 2021-07-14 08:32:24
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/components/search-suggestion.vue
@@ -13,8 +13,12 @@
       icon="search"
       v-for="(str, index) in suggestions"
       :key="index"
+      @click="$emit('search', str)"
     >
-      <div slot="title" v-html="highlight(str)"></div>
+      <template #title>
+        <div v-html="highlight(str)"></div>
+      </template>
+      
     </van-cell>
   </div>
 </template>

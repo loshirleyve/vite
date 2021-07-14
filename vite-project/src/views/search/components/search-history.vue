@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-13 07:36:53
- * @LastEditTime: 2021-07-13 08:05:34
+ * @LastEditTime: 2021-07-14 08:42:14
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/components/search-history.vue
@@ -17,18 +17,26 @@
       <van-icon name="delete"></van-icon>
     </van-cell>
 
-    <van-cell title="hello">
+    <van-cell
+      :title="history"
+      v-for="(history, index) in searchHistories"
+      :key="index"
+    >
       <van-icon name="close"></van-icon>
     </van-cell>
-    <van-cell title="hello world">
-      <van-icon name="close"></van-icon>
-    </van-cell>
+    
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SearchHistory'
+  name: 'SearchHistory',
+  props: {
+    searchHistories: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 

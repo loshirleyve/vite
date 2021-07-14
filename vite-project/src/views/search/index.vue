@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-12 22:02:10
- * @LastEditTime: 2021-07-13 08:17:55
+ * @LastEditTime: 2021-07-14 08:37:55
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/index.vue
@@ -16,7 +16,7 @@
       v-model="searchText" 
       placeholder="Placeholder"
       show-action
-      @search="onSearch"
+      @search="onSearch(searchText)"
       @cancel="$router.back()"
       @focus="isResultShow = false"
     />
@@ -34,11 +34,15 @@
   <search-suggestion
     v-else-if="searchText"
     :search-text="searchText"
+    @search="onSearch"
   />
   <!-- /搜索联想 -->
 
   <!-- 历史记录 -->
-  <search-history v-else />
+  <search-history
+    v-else
+    :search-histories="searchHistories"
+  />
   <!-- /历史记录 -->
 
 
@@ -48,6 +52,8 @@
 import SearchSuggestion from './components/search-suggestion.vue'
 import SearchHistory from './components/search-history.vue'
 import SearchResult from './components/search-result.vue'
+
+import { setItem } from '@/utils/storage'
 
 export default {
   components: {
@@ -59,13 +65,30 @@ export default {
   data () {
     return {
       searchText: '',
-      isResultShow: false // 控制搜索结果的显示状态
+      isResultShow: false, // 控制搜索结果的显示状态
+      searchHistories: [] // 搜索历史
     }
   },
   methods: {
-    onSearch () {
-      console.log('onsearch')
+    onSearch (searchText) {
+      // 把输入框设置为你要搜索的文本
+      this.searchText = searchText
 
+      const index = this.searchHistories.indexOf(searchText)
+      if(index !== -1) {
+        // 把重复项删除
+        this.searchHistories.splice(index, 1)
+      }
+
+      // 把最新的搜索历史记录放到顶部
+      this.searchHistories.unshift(searchText)
+
+      // 如果用户已登录，则把搜索记录存储到线上
+      //    提示：只要我们调用获取搜索结果的数据接口，后端会给我们自动存储用户的搜索记录
+      // 如果没有登录，则把搜索记录存储到本地
+      setItem('search-histories', this.searchHistories)
+
+      
       // 展示搜索结果
       this.isResultShow = true
     },
