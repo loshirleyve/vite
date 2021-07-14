@@ -2,7 +2,7 @@
 /*
  * @Author: liuli
  * @Date: 2021-07-13 08:34:42
- * @LastEditTime: 2021-07-14 08:19:07
+ * @LastEditTime: 2021-07-14 13:55:23
  * @LastEditors: Please set LastEditors
  * @Description: 搜索请求相关模块
  * @FilePath: /vite/vite-project/src/api/search.js
@@ -80,6 +80,23 @@ export const getSearchResults = params => {
         ]
       }
       resolve({data: { data: { results } }})
+    }, 500)
+  })
+}
+
+// 获取用户搜索历史
+export const getUserSearchHistories = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const keywords  = [
+        'aaaaaaaa',
+        'a11111',
+        'a222222',
+        'a33333',
+        'a44444',
+        'a55555'
+      ]
+      resolve({data: { data: { keywords } }})
     }, 500)
   })
 }

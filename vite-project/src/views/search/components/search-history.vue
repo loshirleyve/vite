@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-13 07:36:53
- * @LastEditTime: 2021-07-14 08:42:14
+ * @LastEditTime: 2021-07-14 13:57:41
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/search/components/search-history.vue
@@ -21,6 +21,7 @@
       :title="history"
       v-for="(history, index) in searchHistories"
       :key="index"
+      @click="$emit('search', history)"
     >
       <van-icon name="close"></van-icon>
     </van-cell>
