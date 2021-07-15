@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-15 07:01:08
- * @LastEditTime: 2021-07-15 08:46:09
+ * @LastEditTime: 2021-07-15 13:10:20
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/article/index.vue
@@ -16,10 +16,10 @@
     />
     <!-- /导航栏 -->
 
-    <h1 class="title">牛逼程序员都用的开源工具，你用了几个？</h1>
+    <h1 class="title">{{ article.title }}</h1>
     <van-cell center>
       <template #title>
-        <div class="name">天涯小型客</div>
+        <div class="name">{{ article.aut_name }}</div>
       </template>
       
       <template #icon>
@@ -27,25 +27,28 @@
           class="avatar"
           fit="cover"
           round
-          src="https://img.yzcdn.cn/vant/cat.jpeg">
+          :src="article.aut_photo">
           <template v-slot:error>加载失败</template>
         </van-image>
       </template>
 
       <template #label>
-        <div class="pubdate">14小时前</div>
+        <div class="pubdate">{{ article.pubdate }}</div>
       </template>
 
       <van-button
         class="follow-btn"
-        type="primary"
+        :type="article.is_followed ? 'default' : primary"
+        :icon="article.is_followed ? '' : plus"
         round
-        icon="plus"
         size="small"
-      >关注</van-button>
+      >{{ article.is_followed ? '已关注' : '关注' }}</van-button>
     </van-cell>
 
-    <div class="content"></div>
+    <div class="markdown-body" v-html="article.content">
+
+
+    </div>
   </div>
 </template>
 
@@ -54,17 +57,21 @@
 //    方式一： this.$route.params.xxx
 //    方式二： props 传参，推荐
 //            this.articleId
+import './github-markdown.css'
+import { getArticleById } from '@/api/article'
 export default {
   name: 'ArticleIndex',
   component: {},
   props: {
     articleId: {
-      type: String,
+      type: [String, Number, Object], // json-bigint 转化后会变成 Object
       required: true
     }
   },
   data () {
-    return {}
+    return {
+      article: {}
+    }
   },
   computed: {},
   watch: {},
@@ -72,10 +79,13 @@ export default {
     
   },
   mounted() {
-    
+    this.loadArticle()
   },
   methods: {
-    
+    async loadArticle () {
+      const { data } = await getArticleById(this.articleId)
+      this.article = data.data
+    }
   },
 }
 </script>
@@ -104,5 +114,14 @@ export default {
   .follow-btn {
     width: 85px;
     height: 29px;
+  }
+
+  ul {
+    list-style: unset;
+  }
+  
+  .markdown-body {
+    padding: 14px;
+    background-color: #fff;
   }
 </style>
