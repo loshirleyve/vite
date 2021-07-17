@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-15 07:01:08
- * @LastEditTime: 2021-07-16 08:52:49
+ * @LastEditTime: 2021-07-17 09:28:06
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/article/index.vue
@@ -16,42 +16,51 @@
     />
     <!-- /导航栏 -->
 
-    <h1 class="title">{{ article.title }}</h1>
-    <van-cell center>
-      <template #title>
-        <div class="name">{{ article.aut_name }}</div>
-      </template>
-      
-      <template #icon>
-        <van-image
-          class="avatar"
-          fit="cover"
+    <div class="article-wrap">
+      <h1 class="title">{{ article.title }}</h1>
+      <van-cell center>
+        <template #title>
+          <div class="name">{{ article.aut_name }}</div>
+        </template>
+        
+        <template #icon>
+          <van-image
+            class="avatar"
+            fit="cover"
+            round
+            :src="article.aut_photo">
+            <template v-slot:error>加载失败</template>
+          </van-image>
+        </template>
+
+        <template #label>
+          <div class="pubdate">{{ article.pubdate }}</div>
+        </template>
+
+        <van-button
+          class="follow-btn"
+          :type="article.is_followed ? 'default' : 'primary'"
+          :icon="article.is_followed ? '' : 'plus'"
           round
-          :src="article.aut_photo">
-          <template v-slot:error>加载失败</template>
-        </van-image>
-      </template>
+          size="small"
+          :loading="isFollowLoading"
+          @click="onFollow"
+        >{{ article.is_followed ? '已关注' : '关注' }}</van-button>
+      </van-cell>
 
-      <template #label>
-        <div class="pubdate">{{ article.pubdate }}</div>
-      </template>
+      <div
+        class="markdown-body"
+        v-html="article.content"
+        ref="article-content"
+      >
+      </div>
 
-      <van-button
-        class="follow-btn"
-        :type="article.is_followed ? 'default' : 'primary'"
-        :icon="article.is_followed ? '' : 'plus'"
-        round
-        size="small"
-        :loading="isFollowLoading"
-        @click="onFollow"
-      >{{ article.is_followed ? '已关注' : '关注' }}</van-button>
-    </van-cell>
-
-    <div
-      class="markdown-body"
-      v-html="article.content"
-      ref="article-content"
-    >
+      <!-- 文章评论列表 -->
+      <comment-list
+        :source="articleId"
+      />
+      <!-- /文章评论列表 -->
+      
     </div>
 
     <!-- 底部区域 -->
@@ -62,28 +71,37 @@
         round
         size="small"
       >写评论</van-button>
-      <van-icon
-        class="comment-o"
-        name="comment-o"
-        info="123"
-        color="#777"
-      />
-      <van-icon
-        class="star-o"
-        :name="article.is_collected ? 'star' : 'star-o'"
-        :color="article.is_collected ? 'orange': '#777'"
-        @click="onCollect"
-      />
-      <van-icon
-        class="good-job-o"
-        name="good-job-o"
-        color="#777"
-      />
-      <van-icon
-        class="share"
-        name="share"
-        color="#777"
-      />
+      
+      <span class="comment-o">
+        <van-icon
+          name="comment-o"
+          info="123"
+          color="#777"
+        />
+      </span>
+
+      <span class="star-o">
+        <van-icon
+          :name="article.is_collected ? 'star' : 'star-o'"
+          :color="article.is_collected ? 'orange': '#777'"
+          @click="onCollect"
+        />
+      </span>
+
+      <span class="good-job-o">
+        <van-icon
+          :name="article.attitude === 1 ? 'good-job' : 'good-job-o'"
+          :color="article.attitude === 1 ? 'orange': '#777'"
+          @click="onLick"
+        />
+      </span>
+
+      <span class="share">
+        <van-icon
+          name="share"
+          color="#777"
+        />
+      </span>
     </div>
     <p class="bottom-place"></p>
     <!-- /底部区域 -->
@@ -104,13 +122,16 @@ import {
   addFollow,
   deleteFollow,
   addCollect,
-  deleteCollect
+  deleteCollect,
+  addLike,
+  deleteLike
 } from '@/api/article'
+import CommentList from './components/CommentList.vue'
 
 
 export default {
   name: 'ArticleIndex',
-  component: {},
+  components: { CommentList },
   props: {
     articleId: {
       type: [String, Number, Object], // json-bigint 转化后会变成 Object
@@ -193,12 +214,36 @@ export default {
       // 更新视图
       this.article.is_collected = !this.article.is_collected
       this.$toast.success(`${this.article.is_collected ? '' : '取消'}收藏成功`)
+    },
+    async onLick () {
+      this.$toast.loading({
+        message: '操作中...',
+        forbidClick: true // 禁止背景点击
+      })
+      if (this.article.attitude === 1) {
+        // 已点赞，取消点赞
+        await addLike(this.article.articleId)
+      } else {
+        // 没有点赞，添加点赞
+        await deleteLike(this.article.articleId)
+      }
+      // 更新视图
+      this.article.attitude = this.article.attitude === 1 ? -1 : 1
+      this.$toast.success(`${this.article.attitude === 1 ? '' : '取消'}点赞成功`)
     }
   },
 }
 </script>
 
 <style lang="less" scoped>
+  .article-wrap {
+    position: fixed;
+    top: 46px;
+    left: 0;
+    right: 0;
+    bottom: 54px;
+    overflow-y: auto;
+  }
   .title {
     font-size: 20px;
     color: #3a3a3a;
@@ -271,4 +316,5 @@ export default {
   .bottom-place {
     height: 60px;
   }
+
 </style>

@@ -2,11 +2,13 @@
 /*
  * @Author: your name
  * @Date: 2021-07-15 12:41:20
- * @LastEditTime: 2021-07-16 08:45:30
+ * @LastEditTime: 2021-07-17 09:19:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vite/vite-project/src/api/article.js
  */
+
+// import request from "@/utils/request"
 
 // mock 的文章详情数据
 const data  = {
@@ -60,7 +62,8 @@ const data  = {
   pubdate: '2020-05-16T01:26:12',
   recomments: [],
   title: 'Vue.js',
-  message: 'OK'
+  message: 'OK',
+  attitude: 1
 }
 
 /**
@@ -143,6 +146,41 @@ export const deleteCollect = articleId => {
   return new Promise((resolve) => {
     setTimeout(() => {
       data.is_collected = false
+      resolve({data: { data: { flag: 'S' } }})
+    }, 500)
+  }) 
+}
+
+/**
+ * 添加点赞
+ */
+export const addLike = articleId => {
+  // return request({
+  //   method: 'POST',
+  //   url: '/app/v1_0/article/likings',
+  //   data: {
+  //     target: articleId
+  //   }
+  // })
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      data.attitude = 1
+      resolve({data: { data: { flag: 'S' } }})
+    }, 500)
+  })
+}
+
+/**
+ * 取消点赞
+ */
+export const deleteLike = articleId => {
+  // return request({
+  //   method: 'DELETE',
+  //   url: `/app/v1_0/article/likings/${articleId}`
+  // })
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      data.attitude = -1
       resolve({data: { data: { flag: 'S' } }})
     }, 500)
   }) 
