@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-12 21:47:24
- * @LastEditTime: 2021-07-13 08:17:00
+ * @LastEditTime: 2021-07-19 08:40:08
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/App.vue
@@ -15,7 +15,6 @@
 
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-
 // This starter template is using Vue 3 experimental <script setup> SFCs
 // Check out https://github.com/vuejs/rfcs/blob/master/active-rfcs/0040-script-setup.md
 </script>

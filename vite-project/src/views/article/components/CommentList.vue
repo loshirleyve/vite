@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-17 08:29:40
- * @LastEditTime: 2021-07-17 09:44:35
+ * @LastEditTime: 2021-07-19 07:10:25
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/article/components/CommentList.vue
@@ -15,11 +15,10 @@
       finished-text="没有更多了"
       @load="onLoad"
     >
-      <van-cell
+      <CommentItem
         v-for="(comment, index) in list"
         :key="index"
-        :title="comment.content"
-      />
+        :comment="comment" />
     </van-list>
 
   </div>
@@ -28,9 +27,10 @@
 
 <script>
 import { getComments } from '@/api/comment'
+import CommentItem from './CommentItem/CommentItem.vue'
 export default {
   name: 'CommentList',
-  components: {},
+  components: { CommentItem },
   props: {
     source: {
       type: [Number, String, Object],
