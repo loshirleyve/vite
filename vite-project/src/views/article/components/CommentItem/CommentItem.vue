@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-19 07:04:20
- * @LastEditTime: 2021-07-19 08:44:28
+ * @LastEditTime: 2021-07-19 13:03:06
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/article/components/CommentItem/CommentItem.vue
@@ -22,7 +22,7 @@
         <div class="name">{{ comment.aut_name }}</div>
         <div class="content">{{ comment.content }}</div>
         <div>
-          <span class="pubdate">{{ $filters.datetime(comment.pubdate) }}</span>
+          <span class="pubdate">{{ datetime(comment.pubdate) }}</span>
           <van-button
             class="reply-btn"
             round
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { datetime } from '@/utils/dayjs'
 export default {
   name: 'CommentItem',
   props: {
@@ -51,7 +52,12 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      
+    }
+  },
+  methods: {
+    datetime
   }
 }
 </script>
