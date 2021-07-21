@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-12 21:47:24
- * @LastEditTime: 2021-07-19 08:40:08
+ * @LastEditTime: 2021-07-20 06:26:24
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/App.vue
@@ -19,10 +19,18 @@ import HelloWorld from './components/HelloWorld.vue'
 // Check out https://github.com/vuejs/rfcs/blob/master/active-rfcs/0040-script-setup.md
 </script>
 
-<style>
+<style lang="less">
+
 #app {
   color: #2c3e50;
   background-color: #f7f8fa;
   min-height: 100vh;
+}
+.flex {
+  display: flex;
+}
+.flex-align(@horizion, @vertical) {
+  justify-content: @horizion;
+  align-content: @vertical;
 }
 </style>

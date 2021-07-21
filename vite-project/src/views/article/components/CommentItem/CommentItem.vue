@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-19 07:04:20
- * @LastEditTime: 2021-07-19 13:03:06
+ * @LastEditTime: 2021-07-20 06:45:56
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/article/components/CommentItem/CommentItem.vue
@@ -21,20 +21,24 @@
       <div>
         <div class="name">{{ comment.aut_name }}</div>
         <div class="content">{{ comment.content }}</div>
-        <div>
-          <span class="pubdate">{{ datetime(comment.pubdate) }}</span>
+        <div class="flex">
+          <span class="pubdate">{{ datetime(comment.pubdate, 'MM-DD HH:mm') }}</span>
           <van-button
             class="reply-btn"
             round
             size="mini"
-          >回复</van-button>
+          >{{ comment.reply_count }} 回复</van-button>
         </div>
       </div>
     </template>
     <template #right-icon>
       <div class="like-wrap">
-        <van-icon name="good-job-o" class="like-icon" />
-        <span class="like-count">12</span>
+        <van-icon
+          :name="comment.is_liking ? 'good-job' : 'good-job-o'"
+          class="like-icon"
+          :class="{liked: comment.is_liking}"
+        />
+        <span class="like-count">{{ comment.like_count }}</span>
       </div>
     </template>
     
@@ -68,6 +72,7 @@ export default {
   .avatar {
     width: 36px;
     height: 36px;
+    margin-right: 10px;
   }
   .name {
     color: #406599;
@@ -80,9 +85,13 @@ export default {
   }
   .pubdate {
     font-size: 10px;
+    margin-right: 10px;
   }
-  .reply-btn {
-    
+  .flex {
+    align-content: center;
+  }
+  .like-icon.liked {
+    color: orange;
   }
 }
 </style>>

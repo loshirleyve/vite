@@ -1,7 +1,7 @@
 /*
  * @Author: liuli
  * @Date: 2021-07-19 07:45:32
- * @LastEditTime: 2021-07-19 12:58:54
+ * @LastEditTime: 2021-07-20 06:22:10
  * @LastEditors: Please set LastEditors
  * @Description: 初始化 dayjs 相关配置
  * @FilePath: /vite/vite-project/src/utils/dayjs.js
@@ -33,8 +33,8 @@ dayjs.locale('zh-cn')
 // })
 
 export const relativetime = value => dayjs(value).from(dayjs())
-export const datetime = value => {
-  return dayjs(value).format('MM-DD HH:mm')
+export const datetime = (value, format = 'YYYY-MM-DD HH:mm:ss') => {
+  return dayjs(value).format(format)
 }
 
 // 例如日期格式化
