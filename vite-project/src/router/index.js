@@ -2,7 +2,7 @@
 /*
  * @Author: liuli
  * @Date: 2021-07-12 21:56:11
- * @LastEditTime: 2021-07-15 08:14:50
+ * @LastEditTime: 2021-07-22 07:37:15
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/router/index.js
@@ -32,6 +32,16 @@ const routes = [
     component: () => import('@/views/article/index.vue'),
     // 将动态路由参数映射到组件的 props 中，无论是访问，还是维护性都很方便
     props: true
+  },
+  {
+    path: '/canvas',
+    name: 'canvas',
+    component: () => import('@/views/canvas/index.vue')
+  },
+  {
+    path: '/canvas-ggk',
+    name: 'canvas-ggk',
+    component: () => import('@/views/canvas/ggk/index.vue')
   }
 ]
 
