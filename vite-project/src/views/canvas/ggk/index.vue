@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-22 07:01:40
- * @LastEditTime: 2021-07-22 08:20:36
+ * @LastEditTime: 2021-07-22 08:28:42
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/views/canvas/ggk/index.vue
@@ -34,10 +34,6 @@ export default {
     ctx.font = '20px'
     ctx.fillStyle = '#fff'
     ctx.fillText('刮刮卡', 140, 80)
-    
-    // 第二个矩形为源图像
-    ctx.fillStyle = 'deepskyblue'
-    ctx.fillRect(400, 200, 180, 200)
 
     // 是否允许绘制
     let isDraw = false
@@ -52,7 +48,10 @@ export default {
         // 当前点击的页面位置 - canvas 容器的偏移量 = 当前点击位置在 canvas 中的相对位置
         const x = touch.clientX - ggkDom.offsetLeft
         const y = touch.clientY - ggkDom.offsetTop
+        // 这个是关键：只显示圆之外的矩形部分，圆又是透明的
+        // 在源图像之外显示。目标图像只有源图像之外的目标图像部分会被显示，源图相是透明的。
         ctx.globalCompositeOperation = 'destination-out'
+        // 绘制目标图像，半径为20的圆
         ctx.arc(x, y, 20, 0, 2 * Math.PI)
         ctx.fill()
       }
