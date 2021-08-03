@@ -6,6 +6,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "dayjs": "^1.10.6",
     "json-bigint": "^1.0.0",
     "lodash": "^4.17.21",

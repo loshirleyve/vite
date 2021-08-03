@@ -2,7 +2,7 @@
 /*
  * @Author: liuli
  * @Date: 2021-07-16 06:53:01
- * @LastEditTime: 2021-07-16 08:49:00
+ * @LastEditTime: 2021-07-26 10:22:20
  * @LastEditors: Please set LastEditors
  * @Description: 请求模块
  * @FilePath: /vite/vite-project/src/utils/request.js
@@ -15,7 +15,7 @@ import JSONbig from 'json-bigint'
 import store from '@/store/'
 
 const request = axios.create({
-  baseURL: 'http://', // 基础路径
+  baseURL: 'http://localhost:3555/api', // 基础路径
 
   // 后端返回的数据可能不是 JSON 格式字符串
   // 如果不是的话，那么 JSONbig.parse 调用就会报错
@@ -34,3 +34,5 @@ const request = axios.create({
     // return JSON.parse(data)
   }]
 })
+
+export default request
