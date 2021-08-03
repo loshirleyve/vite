@@ -1,7 +1,7 @@
 <!--
  * @Author: liuli
  * @Date: 2021-07-12 22:02:10
- * @LastEditTime: 2021-07-22 10:04:21
+ * @LastEditTime: 2021-08-01 14:51:37
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/components/Home.vue
@@ -20,6 +20,9 @@
     </router-link>
     <router-link to="/canvas-ggk">
       <van-button type="primary">go Canvas ggk</van-button>
+    </router-link>
+    <router-link to="/promise">
+      <van-button type="primary">go promise</van-button>
     </router-link>
   </div>
 </template>

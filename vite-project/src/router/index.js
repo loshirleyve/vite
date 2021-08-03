@@ -2,7 +2,7 @@
 /*
  * @Author: liuli
  * @Date: 2021-07-12 21:56:11
- * @LastEditTime: 2021-07-22 07:37:15
+ * @LastEditTime: 2021-08-01 14:17:00
  * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /vite/vite-project/src/router/index.js
@@ -42,6 +42,11 @@ const routes = [
     path: '/canvas-ggk',
     name: 'canvas-ggk',
     component: () => import('@/views/canvas/ggk/index.vue')
+  },
+  {
+    path: '/promise',
+    name: 'promise',
+    component: () => import('@/views/Promise/index.vue')
   }
 ]
 
