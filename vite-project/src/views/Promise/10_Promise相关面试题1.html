@@ -1,0 +1,33 @@
+<!--
+ * @Author: liuli
+ * @Date: 2021-08-04 06:53:41
+ * @LastEditTime: 2021-08-04 07:45:04
+ * @LastEditors: Please set LastEditors
+ * @Description: 
+ * @FilePath: /vite/vite-project/src/views/Promise/10_Promise相关面试题1.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10_Promise相关面试题1</title>
+</head>
+<body>
+  <script>
+
+    // 执行结果 3 2 4 1
+    setTimeout(() => {
+      console.log(1)
+    }, 0)
+    Promise.resolve().then(() => {
+      console.log(2)
+    })
+    Promise.resolve().then(() => {
+      console.log(4)
+    })
+    console.log(3)
+  </script>
+</body>
+</html>

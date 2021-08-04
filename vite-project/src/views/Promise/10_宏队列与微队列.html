@@ -1,0 +1,52 @@
+<!--
+ * @Author: liuli
+ * @Date: 2021-08-04 07:22:26
+ * @LastEditTime: 2021-08-04 07:40:54
+ * @LastEditors: Please set LastEditors
+ * @Description: 
+ * @FilePath: /vite/vite-project/src/views/Promise/10_宏队列与微队列.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10_宏队列与微队列</title>
+</head>
+<body>
+  <script>
+    /*
+    
+    宏队列：dom 事件回调， ajax 回调， 定时器回调
+    微队列：promise 回调， mutation 回调
+
+    1，先执行完所有同步代码
+    2，每次准备取出第一个宏任务执行前，都要将所有的微任务一个一个取出来执行
+    */
+
+    setTimeout(() => { // 会立即放入宏队列
+      console.log('timeout callback1()')
+      Promise.resolve(4).then(
+        value => { // 会立即放入微队列
+          console.log('Promise onResolved1()', value)
+        }
+      )
+    }, 0)
+    setTimeout(() => { // 会立即放入宏队列
+      console.log('timeout callback2()')
+    }, 0)
+    Promise.resolve(1).then(
+      value => { // 会立即放入微队列
+        console.log('Promise onResolved1()', value)
+      }
+    )
+    Promise.resolve(2).then(
+      value => { // 会立即放入微队列
+        console.log('Promise onResolved2()', value)
+      }
+    )
+  </script>
+</body>
+</html>
