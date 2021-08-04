@@ -1,0 +1,49 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-08-04 16:26:44
+ * @LastEditTime: 2021-08-04 17:58:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vite/vite-project/src/views/article/HTML、CSS 和 JavaScript，是如何变成页面的？.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML、CSS 和 JavaScript，是如何变成页面的？</title>
+  <style>
+    body { font-size: 2em }
+    p { color: blue; }
+    span { display: none }
+    div { font-weight: bold }
+    div p { color: green; }
+    div { color: red; }
+  </style>
+
+  <style>
+    div {
+      width: 200;
+      height: 200;
+      overflow: auto;
+      background: gray;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>所以元素有了层叠上下文的属性或者需要被剪裁，那么就会被提升成为单独一层，你可以参看下图：</p>
+    <p>从上图我们可以看到，document层上有A和B层，而B层之上又有两个图层。这些图层组织在一起也是一颗树状结构。</p>
+    <p>图层树是基于布局树来创建的，为了找出哪些元素需要在哪些层中，渲染引擎会遍历布局树来创建层树（Update LayerTree）。</p> 
+  </div>
+  <p><span>重点介绍</span>渲染流程</p>
+  <div>
+    <p>green</p>
+    <div>red</div>
+  </div>
+</body>
+<script>
+  document.getElementsByTagName('p')[0].innerText = 'black'
+</script>
+</html>
