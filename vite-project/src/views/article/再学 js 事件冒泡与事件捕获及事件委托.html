@@ -1,0 +1,60 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-08-04 14:14:37
+ * @LastEditTime: 2021-08-04 14:59:17
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vite/vite-project/src/views/article/再学 js 事件冒泡与事件捕获及事件委托.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>再学 js 事件冒泡与事件捕获及事件委托</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="content">
+      <div class="box">box</div>
+    </div>
+  </div>
+
+  <ul class="ul">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+  </ul>
+
+  <script>
+    let wrapper = document.querySelector('.wrapper')
+    let content = document.querySelector('.content')
+    let box = document.querySelector('.box')
+
+    // 冒泡
+    wrapper.addEventListener('click', () => console.log('wrapper1'), false)
+    content.addEventListener('click', () => console.log('content1'), false)
+    box.addEventListener('click', () => console.log('box1'), false)
+
+    // 捕获
+    wrapper.addEventListener('click', () => console.log('wrapper1'), true)
+    content.addEventListener('click', () => console.log('content1'), true)
+    box.addEventListener('click', () => console.log('box1'), true)
+
+
+    // 利用事件冒泡将子元素 li 的点击事件委托到父元素 ul 上，点击对应的 li 打印出 li 的内容
+    const ul = document.querySelector('.ul')
+    ul.onclick = e => {
+      console.log(e)
+      console.log(e.target)
+      console.log(e.target.innerText)
+    }
+  </script>
+</body>
+</html>
