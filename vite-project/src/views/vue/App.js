@@ -1,6 +1,8 @@
+
 // const { effect, reactive } = require('@vue/reactivity')
 // const { effectWatch, reactive } = require('./core/reactivity')
 import { effectWatch, reactive } from './core/reactivity/index.js'
+import { h } from './core/h.js'
 
 // v1
 // let a = 10
@@ -68,22 +70,29 @@ export default {
   // template -> render
   render (context) {
     // 构建视图 view = b
-    effectWatch(() => {
-      // view -> 每次我都需要重新的创建
+   // view -> 每次我都需要重新的创建
       // 要计算出最小的更新点 -> vdom
       // js -> diff
 
       // reset
       // document.body.innerText = ''
 
-      const div = document.createElement('div')
-      div.innerText = context.state.count
+      // const div = document.createElement('div')
+      // div.innerText = context.state.count
 
-      return div
+      // return div
 
       // root
       // document.body.append(div)
-    })
+
+      return h('div',
+        {
+          id: 'appId' + context.state.count,
+          class: 'showTime'
+        },
+        // String(context.state.count)
+        [h('p', null, String(context.state.count)), h('p', null, 'haha')]
+      )
 
   },
   setup () {
